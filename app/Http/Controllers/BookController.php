@@ -9,11 +9,11 @@ class BookController extends Controller
     public function index()
     {
         $books = [
-            ['id' => 1, 'judul' => 'Laskar Pelangi', 'penulis' => 'Andrea Hirata', 'tahun' => 2005],
-            ['id' => 2, 'judul' => 'Bumi Manusia', 'penulis' => 'Pramoedya Ananta Toer', 'tahun' => 1980],
-            ['id' => 3, 'judul' => 'Negeri 5 Menara', 'penulis' => 'Ahmad Fuadi', 'tahun' => 2009],
-            ['id' => 4, 'judul' => 'Filosofi Teras', 'penulis' => 'Henry Manampiring', 'tahun' => 2018],
-            ['id' => 5, 'judul' => 'Cantik Itu Luka', 'penulis' => 'Eka Kurniawan', 'tahun' => 2002],
+            ['id' => 1, 'judul' => 'Pemrograman PHP', 'penulis' => 'Raka Pramudya', 'tahun' => 2005],
+            ['id' => 2, 'judul' => 'Laravel untuk Pemula', 'penulis' => 'Salsabila Anindya', 'tahun' => 1980],
+            ['id' => 3, 'judul' => 'Basis Data', 'penulis' => 'Fajar Wicaksono', 'tahun' => 2009],
+            ['id' => 4, 'judul' => 'Algoritma dan Pemrograman', 'penulis' => 'Meilani Kartika', 'tahun' => 2018],
+            ['id' => 5, 'judul' => 'Pemrograman Berorientasi Objek', 'penulis' => 'Meilani Kartika', 'tahun' => 2002],
         ];
 
         return view('books.index', compact('books'));
@@ -22,11 +22,11 @@ class BookController extends Controller
     public function show($id)
     {
         $books = [
-            ['id' => 1, 'judul' => 'Laskar Pelangi', 'penulis' => 'Andrea Hirata', 'tahun' => 2005],
-            ['id' => 2, 'judul' => 'Bumi Manusia', 'penulis' => 'Pramoedya Ananta Toer', 'tahun' => 1980],
-            ['id' => 3, 'judul' => 'Negeri 5 Menara', 'penulis' => 'Ahmad Fuadi', 'tahun' => 2009],
-            ['id' => 4, 'judul' => 'Filosofi Teras', 'penulis' => 'Henry Manampiring', 'tahun' => 2018],
-            ['id' => 5, 'judul' => 'Cantik Itu Luka', 'penulis' => 'Eka Kurniawan', 'tahun' => 2002],
+            ['id' => 1, 'judul' => 'Pemrograman PHP', 'penulis' => 'Raka Pramudya', 'tahun' => 2005],
+            ['id' => 2, 'judul' => 'Laravel untuk Pemula', 'penulis' => 'Salsabila Anindya', 'tahun' => 1980],
+            ['id' => 3, 'judul' => 'Basis Data', 'penulis' => 'Fajar Wicaksono', 'tahun' => 2009],
+            ['id' => 4, 'judul' => 'Algoritma dan Pemrograman', 'penulis' => 'Meilani Kartika', 'tahun' => 2018],
+            ['id' => 5, 'judul' => 'Pemrograman Berorientasi Objek', 'penulis' => 'Meilani Kartika', 'tahun' => 2002],
         ];
 
         $book = collect($books)->firstWhere('id', $id);
