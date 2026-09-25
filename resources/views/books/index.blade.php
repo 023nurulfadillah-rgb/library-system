@@ -9,9 +9,9 @@
         <ul>
             @foreach($books as $book)
                 <li>
-                    <strong>{{ $book['judul'] }}</strong> — {{ $book['penulis'] }} ({{ $book['tahun'] }})
+                    <strong>ID: {{ $book->id }}</strong> — <strong>{{ $book->judul }}</strong> — {{ $book->penulis }} ({{ $book->tahun_terbit }}) — Stok: {{ $book->stok }}
                     <br>
-                    <a href="/books/{{ $book['id'] }}">Lihat Detail</a>
+                    <a href="/books/{{ $book->id }}">Lihat Detail</a>
                 </li>
             @endforeach
         </ul>
