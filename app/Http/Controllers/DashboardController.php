@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Book;
 
 class DashboardController extends Controller
 {
@@ -10,7 +11,7 @@ class DashboardController extends Controller
     {
         $appTitle = 'Library System';
         $appDescription = 'Aplikasi sederhana untuk mengelola data buku, kategori, dan member perpustakaan.';
-        $totalBooks = 5;
+        $totalBooks = Book::count();
         $totalMembers = 5;
         $totalCategories = 5;
 
