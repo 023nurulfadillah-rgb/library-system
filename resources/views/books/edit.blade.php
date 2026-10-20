@@ -5,31 +5,44 @@
 @section('content')
     <h2>Edit Buku</h2>
 
-    <form action="{{ route('books.update', $book) }}" method="POST" style="display: flex; gap: 15px; align-items: flex-end; flex-wrap: wrap;">
+    <form action="{{ route('books.update', $book) }}" method="POST" style="display: flex; gap: 15px; align-items: flex-start; flex-wrap: wrap;">
         @csrf
         @method('PUT')
 
         <div>
-            <label>Judul:</label><br>
-            <input type="text" name="judul" value="{{ $book->judul }}" required>
+            <label>Judul Buku</label><br>
+            <input type="text" name="judul" value="{{ old('judul', $book->judul) }}">
+            @error('judul')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
-            <label>Penulis:</label><br>
-            <input type="text" name="penulis" value="{{ $book->penulis }}" required>
+            <label>Penulis</label><br>
+            <input type="text" name="penulis" value="{{ old('penulis', $book->penulis) }}">
+            @error('penulis')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
-            <label>Tahun Terbit:</label><br>
-            <input type="number" name="tahun_terbit" value="{{ $book->tahun_terbit }}" required>
+            <label>Tahun Terbit</label><br>
+            <input type="text" name="tahun_terbit" value="{{ old('tahun_terbit', $book->tahun_terbit) }}">
+            @error('tahun_terbit')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
-            <label>Stok:</label><br>
-            <input type="number" name="stok" value="{{ $book->stok }}" required>
+            <label>Stok</label><br>
+            <input type="text" name="stok" value="{{ old('stok', $book->stok) }}">
+            @error('stok')
+                <p style="color: red;">{{ $message }}</p>
+            @enderror
         </div>
 
         <div>
+            <br>
             <button type="submit">Update</button>
         </div>
     </form>

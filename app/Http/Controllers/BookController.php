@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Book;
+use Illuminate\Validation\Rule;
 
 class BookController extends Controller
 {
@@ -18,16 +19,20 @@ class BookController extends Controller
         return view('books.create');
     }
 
-    public function store(Request $request)
+   public function store(Request $request)
     {
-        Book::create([
-            'judul' => $request->judul,
-            'penulis' => $request->penulis,
-            'tahun_terbit' => $request->tahun_terbit,
-            'stok' => $request->stok,
-        ]);
+        $validated = $request->validate([
+            'judul' => 'required|string|min:3|max:255|unique:books,judul',
+            'penulis' => ['required', 'string', 'min:3', 'max:255', 'regex:/^[\pL\s.\'-]+$/u'],
+            'tahun_terbit' => 'required|integer|digits:4|min:1900|max:' . date('Y'),
+            'stok' => 'required|integer|min:0|max:1000',
+        ], $this->pesanValidasi());
 
-        return redirect()->route('books.index');
+        Book::create($validated);
+
+        return redirect()
+            ->route('books.index')
+            ->with('success', 'Data buku berhasil ditambahkan.');
     }
 
     public function show($id)
@@ -48,19 +53,49 @@ class BookController extends Controller
 
     public function update(Request $request, Book $book)
     {
-        $book->update([
-            'judul' => $request->judul,
-            'penulis' => $request->penulis,
-            'tahun_terbit' => $request->tahun_terbit,
-            'stok' => $request->stok,
-        ]);
+        $validated = $request->validate([
+            'judul' => ['required', 'string', 'min:3', 'max:255', Rule::unique('books', 'judul')->ignore($book->id)],
+            'penulis' => ['required', 'string', 'min:3', 'max:255', 'regex:/^[\pL\s.\'-]+$/u'],
+            'tahun_terbit' => 'required|integer|digits:4|min:1900|max:' . date('Y'),
+            'stok' => 'required|integer|min:0|max:1000',
+        ], $this->pesanValidasi());
 
-        return redirect()->route('books.index');
+        $book->update($validated);
+
+        return redirect()
+            ->route('books.index')
+            ->with('success', 'Data buku berhasil diperbarui.');
     }
 
     public function destroy(Book $book)
     {
         $book->delete();
         return redirect()->route('books.index');
+    }
+
+    private function pesanValidasi()
+    {
+    return [
+        'judul.required' => 'Judul buku wajib diisi.',
+        'judul.min' => 'Judul buku minimal 3 karakter.',
+        'judul.max' => 'Judul buku maksimal 255 karakter.',
+        'judul.unique' => 'Judul buku sudah ada.',
+
+        'penulis.required' => 'Nama penulis wajib diisi.',
+        'penulis.min' => 'Nama penulis minimal 3 karakter.',
+        'penulis.max' => 'Nama penulis maksimal 255 karakter.',
+        'penulis.regex' => 'Nama penulis hanya boleh berisi huruf, spasi, titik, apostrof, dan strip.',
+
+        'tahun_terbit.required' => 'Tahun terbit wajib diisi.',
+        'tahun_terbit.integer' => 'Tahun terbit harus berupa angka bulat.',
+        'tahun_terbit.digits' => 'Tahun terbit harus terdiri dari 4 digit.',
+        'tahun_terbit.min' => 'Tahun terbit minimal 1900.',
+        'tahun_terbit.max' => 'Tahun terbit tidak boleh melebihi tahun ini.',
+
+        'stok.required' => 'Stok wajib diisi.',
+        'stok.integer' => 'Stok harus berupa angka bulat.',
+        'stok.min' => 'Stok tidak boleh negatif.',
+        'stok.max' => 'Stok maksimal 1000.',
+        ];
     }
 }
