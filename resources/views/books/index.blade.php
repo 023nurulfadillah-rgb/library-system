@@ -17,6 +17,8 @@
                 <li>
                     <strong>ID: {{ $book->id }}</strong> — <strong>{{ $book->judul }}</strong> — {{ $book->penulis }} ({{ $book->tahun_terbit }}) — Stok: {{ $book->stok }}
                     <br>
+                    Kategori: {{ $book->category?->nama ?? 'Belum ada kategori' }}
+                    <br>
                     <a href="/books/{{ $book->id }}">Lihat Detail</a>
                     |
                     <a href="{{ route('books.edit', $book) }}">Edit</a>

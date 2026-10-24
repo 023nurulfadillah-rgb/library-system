@@ -8,7 +8,7 @@
     @if(count($categories) > 0)
         <ul>
             @foreach($categories as $category)
-                <li>{{ $category['nama'] }}</li>
+                <li>{{ $category->nama }} ({{ $category->books_count }} buku)</li>
             @endforeach
         </ul>
     @else

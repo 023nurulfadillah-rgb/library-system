@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Models\Category;
 
 class CategoryController extends Controller
 {
     public function index()
     {
-        $categories = [
-            ['id' => 1, 'nama' => 'Fiksi'],
-            ['id' => 2, 'nama' => 'Non-Fiksi'],
-            ['id' => 3, 'nama' => 'Sejarah'],
-            ['id' => 4, 'nama' => 'Sains'],
-            ['id' => 5, 'nama' => 'Pengembangan Diri'],
-        ];
+        $categories = Category::withCount('books')->orderBy('nama')->get();
 
         return view('categories.index', compact('categories'));
     }
