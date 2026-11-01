@@ -8,6 +8,16 @@
 
     <header>
         <h1>Library System</h1>
+
+        @auth
+            <p>
+                Halo, {{ auth()->user()->name }}
+                <form action="{{ route('logout') }}" method="POST" style="display: inline;">
+                    @csrf
+                    <button type="submit">Logout</button>
+                </form>
+            </p>
+        @endauth
     </header>
 
     <nav>
