@@ -9,6 +9,12 @@
 
     <h1>Login Sistem Perpustakaan</h1>
 
+    @if (session('status'))
+        <div style="color: green;">
+            <p>{{ session('status') }}</p>
+        </div>
+    @endif
+
     @if ($errors->any())
         <div style="color: red;">
             @foreach ($errors->all() as $error)
