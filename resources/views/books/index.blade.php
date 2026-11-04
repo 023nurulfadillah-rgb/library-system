@@ -22,12 +22,14 @@
                     <a href="/books/{{ $book->id }}">Lihat Detail</a>
                     |
                     <a href="{{ route('books.edit', $book) }}">Edit</a>
-                    |
-                    <form action="{{ route('books.destroy', $book) }}" method="POST" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" onclick="return confirm('Yakin ingin menghapus buku ini?')">Hapus</button>
-                    </form>
+                    @can('delete', $book)
+                        |
+                        <form action="{{ route('books.destroy', $book) }}" method="POST" style="display: inline;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" onclick="return confirm('Yakin ingin menghapus buku ini?')">Hapus</button>
+                        </form>
+                    @endcan
                 </li>
             @endforeach
         </ul>
